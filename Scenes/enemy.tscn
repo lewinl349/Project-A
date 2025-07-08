@@ -1,8 +1,25 @@
-[gd_scene format=3 uid="uid://ddi2dui4ionno"]
+[gd_scene load_steps=2 format=3 uid="uid://ddi2dui4ionno"]
+
+[ext_resource type="Script" uid="uid://bjjmun0gnwx4g" path="res://Scripts/Stats.cs" id="1_hghv2"]
 
 [node name="Enemy" type="Node2D"]
 
-[node name="Polygon2D" type="Polygon2D" parent="."]
+[node name="Sprite" type="Polygon2D" parent="."]
 scale = Vector2(30, 30)
 color = Color(0.49542, 0.159046, 0.188435, 1)
 polygon = PackedVector2Array(-1, -1, -1, -1, 1, -1, 1, 1, 1, 1, -1, 1)
+
+[node name="StatController" type="Node" parent="." node_paths=PackedStringArray("StatText")]
+script = ExtResource("1_hghv2")
+Hp = 5
+Def = 5
+Atk = 5
+StatText = NodePath("StatText")
+
+[node name="StatText" type="Label" parent="StatController"]
+offset_left = -28.0
+offset_top = -64.0
+offset_right = 29.0
+offset_bottom = -38.0
+text = "HP: 0"
+horizontal_alignment = 1

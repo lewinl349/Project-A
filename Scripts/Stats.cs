@@ -3,9 +3,11 @@ using System;
 
 public partial class Stats : Node2D
 {
-    [Export] public float Hp { get; set; } = 10;
+    [Export] public float MaxHp { get; set; } = 10;
     [Export] public float Def { get; set; } = 10;
     [Export] public float Atk { get; set; } = 10;
+
+    float currentHp;
 
     Label statText;
     Sprite2D sprite;
@@ -16,6 +18,7 @@ public partial class Stats : Node2D
         statText = GetNode<Label>("StatText");
         sprite = GetParent<Node2D>().GetNode<Sprite2D>("Sprite");
         aniPlayer = GetParent<Node2D>().GetNode<AnimationController>("%AnimationPlayer");
+        currentHp = MaxHp;
         UpdateText();
     }
 
@@ -23,7 +26,7 @@ public partial class Stats : Node2D
     {
         return type switch
         {
-            StatType.HP => Hp,
+            StatType.HP => MaxHp,
             StatType.DEF => Def,
             StatType.ATK => Atk,
             _ => 0,
@@ -33,13 +36,20 @@ public partial class Stats : Node2D
 
     public void UpdateText()
     {
-        statText.Text = $"HP: {Hp}";
+        statText.Text = $"HP: {currentHp}";
     }
 
     public void TakeDmg(float dmg)
     {
         aniPlayer.PlayHurt();
-        Hp -= Mathf.Floor(dmg);
+        currentHp -= Mathf.Floor(dmg);
+        UpdateText();
+    }
+
+    public void Heal(float healedHp)
+    {
+        aniPlayer.PlayHeal();
+        currentHp = Mathf.Min(MaxHp, currentHp + Mathf.Floor(healedHp));
         UpdateText();
     }
 }

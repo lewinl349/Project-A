@@ -20,8 +20,8 @@ public partial class BattleManager : Node
     {
         Abilities ally = Allies[allyTurn].GetNode<Abilities>("%AbilityController");
         Abilities enemy = Enemies[enemyTurn].GetNode<Abilities>("%AbilityController");
-        ally.BasicAttack(Allies[allyTurn], Enemies);
-        enemy.BasicAttack(Enemies[enemyTurn], Allies);
+        ally.BasicAttack(Allies[allyTurn], Allies, Enemies);
+        enemy.BasicAttack(Enemies[enemyTurn], Enemies, Allies);
 
         if (allyTurn >= Allies.Length - 1)
         {

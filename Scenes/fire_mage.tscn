@@ -123,7 +123,6 @@ texture = ExtResource("1_gdcd5")
 [node name="StatController" type="Node2D" parent="."]
 unique_name_in_owner = true
 script = ExtResource("1_jo5b3")
-Hp = 8.0
 Def = 0.0
 Atk = 2.0
 

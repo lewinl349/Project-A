@@ -20,7 +20,14 @@ public partial class AnimationController : AnimationPlayer
     public void PlayHurt()
     {
         Tween tween = GetTree().CreateTween();
-        tween.TweenProperty(sprite, "modulate", Colors.Red, 0.5f);
-        tween.TweenProperty(sprite, "modulate", Colors.White, 0.5f);
+        tween.TweenProperty(sprite, "modulate", Colors.Red, 0.2f);
+        tween.TweenProperty(sprite, "modulate", Colors.White, 0.2f);
+    }
+
+    public void PlayHeal()
+    {
+        Tween tween = GetTree().CreateTween();
+        tween.TweenProperty(sprite, "modulate", Colors.LightGreen, 0.2f);
+        tween.TweenProperty(sprite, "modulate", Colors.White, 0.2f);
     }
 }

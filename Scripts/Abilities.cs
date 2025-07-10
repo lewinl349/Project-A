@@ -16,18 +16,18 @@ public partial class Abilities : Node2D
         aniPlayer = GetParent<Node2D>().GetNode<AnimationController>("%AnimationPlayer");
     }
 
-    public virtual void BasicAttack(Node2D sourceObj, Node2D[] targetObjs)
+    public virtual void BasicAttack(Node2D sourceObj, Node2D[] allyObjs, Node2D[] enemyObjs)
     {
         aniPlayer.PlayBasicAttack();
 
-        BasicAttackEffect(sourceObj, targetObjs);
+        BasicAttackEffect(sourceObj, allyObjs, enemyObjs);
     }
 
-    public virtual void BasicAttackEffect(Node2D sourceObj, Node2D[] targetObjs)
+    public virtual void BasicAttackEffect(Node2D sourceObj, Node2D[] allyObjs, Node2D[] enemyObjs)
     {
-        if (targetObjs.Length >= 1)
+        if (enemyObjs.Length >= 1)
         {
-            Stats target = targetObjs[0].GetNode<Stats>("%StatController");
+            Stats target = enemyObjs[0].GetNode<Stats>("%StatController");
             Stats source = sourceObj.GetNode<Stats>("%StatController");
 
             target.TakeDmg(Damage * source.GetStat(StatModifier));

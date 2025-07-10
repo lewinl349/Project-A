@@ -1,9 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://ddi2dui4ionno"]
+[gd_scene load_steps=9 format=3 uid="uid://c5newamppajtq"]
 
-[ext_resource type="Script" uid="uid://csnfoo228gwto" path="res://Scripts/AnimationController.cs" id="1_287tu"]
-[ext_resource type="Texture2D" uid="uid://ha8gtmsmfm5i" path="res://Assets/Enemy.png" id="1_afpow"]
-[ext_resource type="Script" uid="uid://bjjmun0gnwx4g" path="res://Scripts/Stats.cs" id="1_hghv2"]
-[ext_resource type="Script" uid="uid://bydmv45kffpuk" path="res://Scripts/Abilities.cs" id="2_1f0kj"]
+[ext_resource type="Script" uid="uid://csnfoo228gwto" path="res://Scripts/AnimationController.cs" id="1_rhuif"]
+[ext_resource type="Texture2D" uid="uid://cgnn130vb6xqf" path="res://Assets/Healer.png" id="2_rhuif"]
+[ext_resource type="Script" uid="uid://bjjmun0gnwx4g" path="res://Scripts/Stats.cs" id="3_nufhp"]
+[ext_resource type="Script" uid="uid://cdi2rsgjbim56" path="res://Scripts/LightHealer.cs" id="4_efeg1"]
 
 [sub_resource type="Animation" id="Animation_gdcd5"]
 resource_name = "Attack"
@@ -105,31 +105,26 @@ _data = {
 &"RESET": SubResource("Animation_y58v3")
 }
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_287tu"]
-
-[node name="Enemy" type="Node2D"]
+[node name="LightHealer" type="Node2D"]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 unique_name_in_owner = true
 root_node = NodePath("../Sprite")
 libraries = {
-&"": SubResource("AnimationLibrary_h207m"),
-&"Basic Attacks": SubResource("AnimationLibrary_287tu")
+&"": SubResource("AnimationLibrary_h207m")
 }
-script = ExtResource("1_287tu")
-BasicAttack = "BasicAttack_Enemy"
+script = ExtResource("1_rhuif")
 
 [node name="Sprite" type="Sprite2D" parent="."]
 unique_name_in_owner = true
 scale = Vector2(2, 2)
-texture = ExtResource("1_afpow")
+texture = ExtResource("2_rhuif")
 
 [node name="StatController" type="Node2D" parent="."]
 unique_name_in_owner = true
-script = ExtResource("1_hghv2")
-MaxHp = 25.0
+script = ExtResource("3_nufhp")
 Def = 0.0
-Atk = 1.0
+Atk = 2.0
 
 [node name="StatText" type="Label" parent="StatController"]
 offset_left = -28.0
@@ -138,8 +133,11 @@ offset_right = 29.0
 offset_bottom = -38.0
 text = "HP: 0"
 horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
 
 [node name="AbilityController" type="Node2D" parent="."]
 unique_name_in_owner = true
-script = ExtResource("2_1f0kj")
-Damage = 1.0
+script = ExtResource("4_efeg1")
+Damage = 0.1
+Element = 2
+StatModifier = 0

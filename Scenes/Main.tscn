@@ -1,16 +1,31 @@
-[gd_scene load_steps=3 format=3 uid="uid://dr3rsosk5v582"]
+[gd_scene load_steps=4 format=3 uid="uid://dr3rsosk5v582"]
 
+[ext_resource type="Script" uid="uid://c4idxos4nvkl4" path="res://Scripts/BattleManager.cs" id="1_kln2b"]
 [ext_resource type="PackedScene" uid="uid://ddxtpgsio6alv" path="res://Scenes/lightning_sword.tscn" id="1_r150o"]
 [ext_resource type="PackedScene" uid="uid://ddi2dui4ionno" path="res://Scenes/enemy.tscn" id="2_idj7w"]
 
 [node name="Main Scene" type="Node2D"]
+
+[node name="GameManager" type="Node" parent="."]
+
+[node name="BattleManager" type="Node" parent="." node_paths=PackedStringArray("Allies", "Enemies")]
+script = ExtResource("1_kln2b")
+Allies = [NodePath("../LightningSword")]
+Enemies = [NodePath("../Enemy")]
+
+[node name="TurnTimer" type="Timer" parent="BattleManager"]
+unique_name_in_owner = true
+process_callback = 0
+autostart = true
 
 [node name="Background" type="Polygon2D" parent="."]
 color = Color(0.391414, 0.603411, 0.789051, 1)
 polygon = PackedVector2Array(1152, 0, 1152, 648, 0, 648, 0, 0)
 
 [node name="LightningSword" parent="." instance=ExtResource("1_r150o")]
-position = Vector2(82, 525)
+position = Vector2(123, 507)
 
 [node name="Enemy" parent="." instance=ExtResource("2_idj7w")]
-position = Vector2(956, 402)
+position = Vector2(1059, 408)
+
+[connection signal="timeout" from="BattleManager/TurnTimer" to="BattleManager" method="OnTurnTimerTimeout"]

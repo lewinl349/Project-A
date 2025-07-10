@@ -10,11 +10,11 @@ scale = Vector2(30, 30)
 color = Color(0.322474, 0.241901, 0.459453, 1)
 polygon = PackedVector2Array(-1, -1, -1, -1, 1, -1, 1, 1, 1, 1, -1, 1)
 
-[node name="StatController" type="Node" parent="." node_paths=PackedStringArray("StatText")]
+[node name="StatController" type="Node2D" parent="." node_paths=PackedStringArray("StatText")]
+unique_name_in_owner = true
 script = ExtResource("1_2qjrc")
-Hp = 5
-Def = 5
-Atk = 5
+Def = 0.0
+Atk = 2.0
 StatText = NodePath("StatText")
 
 [node name="StatText" type="Label" parent="StatController"]
@@ -25,5 +25,8 @@ offset_bottom = -38.0
 text = "HP: 0"
 horizontal_alignment = 1
 
-[node name="AbilityController" type="Node" parent="."]
+[node name="AbilityController" type="Node2D" parent="."]
+unique_name_in_owner = true
 script = ExtResource("2_7ayol")
+Damage = 1.0
+Element = 1

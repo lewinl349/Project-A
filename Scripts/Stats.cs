@@ -1,28 +1,39 @@
 using Godot;
 using System;
 
-public partial class Stats : Node
+public partial class Stats : Node2D
 {
-    [Export]
-    public int Hp { get; set; } = 10;
-    [Export]
-    public int Def { get; set; } = 10;
-    [Export]
-    public int Atk { get; set; } = 10;
+    [Export] public float Hp { get; set; } = 10;
+    [Export] public float Def { get; set; } = 10;
+    [Export] public float Atk { get; set; } = 10;
 
-    [Export]
-    public Label StatText;
-
-    public int Position { get; set; } = 1;
+    [Export] public Label StatText { get; set; }
 
     public override void _Ready()
     {
         UpdateText();
     }
 
+    public float GetStat(StatType type)
+    {
+        return type switch
+        {
+            StatType.HP => Hp,
+            StatType.DEF => Def,
+            StatType.ATK => Atk,
+            _ => 0,
+        };
+
+    }
+
     public void UpdateText()
     {
-        GD.Print(StatText.Text);
-        StatText.Text = $"HP: {Hp} Pos: {Position}";
+        StatText.Text = $"HP: {Hp}";
+    }
+
+    public void TakeDmg(float dmg)
+    {
+        Hp -= Mathf.Floor(dmg);
+        UpdateText();
     }
 }

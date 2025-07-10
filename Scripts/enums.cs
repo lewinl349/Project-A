@@ -4,7 +4,8 @@ public enum ElementType
     ELECTRIC,
     LIGHT,
     DARK,
-    POISON
+    POISON,
+    FIRE
 }
 
 public enum StatType

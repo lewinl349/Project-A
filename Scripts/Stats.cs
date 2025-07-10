@@ -7,10 +7,15 @@ public partial class Stats : Node2D
     [Export] public float Def { get; set; } = 10;
     [Export] public float Atk { get; set; } = 10;
 
-    [Export] public Label StatText { get; set; }
+    Label statText;
+    Sprite2D sprite;
+    AnimationController aniPlayer;
 
     public override void _Ready()
     {
+        statText = GetNode<Label>("StatText");
+        sprite = GetParent<Node2D>().GetNode<Sprite2D>("Sprite");
+        aniPlayer = GetParent<Node2D>().GetNode<AnimationController>("%AnimationPlayer");
         UpdateText();
     }
 
@@ -28,11 +33,12 @@ public partial class Stats : Node2D
 
     public void UpdateText()
     {
-        StatText.Text = $"HP: {Hp}";
+        statText.Text = $"HP: {Hp}";
     }
 
     public void TakeDmg(float dmg)
     {
+        aniPlayer.PlayHurt();
         Hp -= Mathf.Floor(dmg);
         UpdateText();
     }

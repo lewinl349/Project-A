@@ -1,12 +1,12 @@
 using Godot;
 using System;
 
-public partial class LightningSword : Abilities
+public partial class FireMage : Abilities
 {
-    // Target the 2 frontmost targets
+    // Target all targets
     public override void BasicAttackEffect(Node2D sourceObj, Node2D[] targetObjs)
     {
-        for (int i = 0; i < Mathf.Min(2, targetObjs.Length); i++)
+        for (int i = 0; i < targetObjs.Length; i++)
         {
             if (targetObjs[i] != null)
             {

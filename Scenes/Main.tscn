@@ -1,8 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://dr3rsosk5v582"]
+[gd_scene load_steps=6 format=3 uid="uid://dr3rsosk5v582"]
 
 [ext_resource type="Script" uid="uid://c4idxos4nvkl4" path="res://Scripts/BattleManager.cs" id="1_kln2b"]
 [ext_resource type="PackedScene" uid="uid://ddxtpgsio6alv" path="res://Scenes/lightning_sword.tscn" id="1_r150o"]
 [ext_resource type="PackedScene" uid="uid://ddi2dui4ionno" path="res://Scenes/enemy.tscn" id="2_idj7w"]
+[ext_resource type="Texture2D" uid="uid://dx673wkoasblw" path="res://Assets/Temp-Background.png" id="2_pbw6q"]
+[ext_resource type="PackedScene" uid="uid://d3r53s8ghsem1" path="res://Scenes/fire_mage.tscn" id="3_rgh2o"]
 
 [node name="Main Scene" type="Node2D"]
 
@@ -10,22 +12,43 @@
 
 [node name="BattleManager" type="Node" parent="." node_paths=PackedStringArray("Allies", "Enemies")]
 script = ExtResource("1_kln2b")
-Allies = [NodePath("../LightningSword")]
-Enemies = [NodePath("../Enemy")]
+Allies = [NodePath("../LightningSword"), NodePath("../LightningSword2"), NodePath("../LightningSword3"), NodePath("../FireMage")]
+Enemies = [NodePath("../Enemy"), NodePath("../Enemy2"), NodePath("../Enemy3")]
 
 [node name="TurnTimer" type="Timer" parent="BattleManager"]
 unique_name_in_owner = true
 process_callback = 0
-autostart = true
+wait_time = 1.5
 
 [node name="Background" type="Polygon2D" parent="."]
+visible = false
 color = Color(0.391414, 0.603411, 0.789051, 1)
 polygon = PackedVector2Array(1152, 0, 1152, 648, 0, 648, 0, 0)
 
+[node name="Background2" type="Polygon2D" parent="."]
+color = Color(0.703808, 0.703808, 0.703808, 1)
+texture = ExtResource("2_pbw6q")
+polygon = PackedVector2Array(1152, 0, 1152, 648, 0, 648, 0, 0)
+
 [node name="LightningSword" parent="." instance=ExtResource("1_r150o")]
-position = Vector2(123, 507)
+position = Vector2(509, 415)
+
+[node name="LightningSword2" parent="." instance=ExtResource("1_r150o")]
+position = Vector2(391, 415)
+
+[node name="LightningSword3" parent="." instance=ExtResource("1_r150o")]
+position = Vector2(262, 415)
+
+[node name="FireMage" parent="." instance=ExtResource("3_rgh2o")]
+position = Vector2(135, 415)
 
 [node name="Enemy" parent="." instance=ExtResource("2_idj7w")]
-position = Vector2(1059, 408)
+position = Vector2(742, 410)
+
+[node name="Enemy2" parent="." instance=ExtResource("2_idj7w")]
+position = Vector2(894, 410)
+
+[node name="Enemy3" parent="." instance=ExtResource("2_idj7w")]
+position = Vector2(1050, 410)
 
 [connection signal="timeout" from="BattleManager/TurnTimer" to="BattleManager" method="OnTurnTimerTimeout"]

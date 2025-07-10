@@ -1,21 +1,130 @@
-[gd_scene load_steps=3 format=3 uid="uid://ddxtpgsio6alv"]
+[gd_scene load_steps=9 format=3 uid="uid://ddxtpgsio6alv"]
 
 [ext_resource type="Script" uid="uid://bjjmun0gnwx4g" path="res://Scripts/Stats.cs" id="1_2qjrc"]
+[ext_resource type="Script" uid="uid://csnfoo228gwto" path="res://Scripts/AnimationController.cs" id="1_h207m"]
+[ext_resource type="Texture2D" uid="uid://c3myik0i005m2" path="res://Assets/Lightning.png" id="1_y58v3"]
 [ext_resource type="Script" uid="uid://bx5e3ecles4vt" path="res://Scripts/LightningSword.cs" id="2_7ayol"]
+
+[sub_resource type="Animation" id="Animation_gdcd5"]
+resource_name = "Attack"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(0.203063, 0.143587, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(113, -59), Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, 0.615447, 0.0]
+}
+
+[sub_resource type="Animation" id="Animation_jy51b"]
+resource_name = "BasicAttack_Enemy"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(0.203063, 0.143587, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(-113, -59), Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, -0.616101, 0.0]
+}
+
+[sub_resource type="Animation" id="Animation_y58v3"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_h207m"]
+_data = {
+&"BasicAttack": SubResource("Animation_gdcd5"),
+&"BasicAttack_Enemy": SubResource("Animation_jy51b"),
+&"RESET": SubResource("Animation_y58v3")
+}
 
 [node name="LightningSword" type="Node2D"]
 
-[node name="Sprite" type="Polygon2D" parent="."]
-scale = Vector2(30, 30)
-color = Color(0.322474, 0.241901, 0.459453, 1)
-polygon = PackedVector2Array(-1, -1, -1, -1, 1, -1, 1, 1, 1, 1, -1, 1)
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+unique_name_in_owner = true
+root_node = NodePath("../Sprite")
+libraries = {
+&"": SubResource("AnimationLibrary_h207m")
+}
+script = ExtResource("1_h207m")
 
-[node name="StatController" type="Node2D" parent="." node_paths=PackedStringArray("StatText")]
+[node name="Sprite" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+scale = Vector2(2, 2)
+texture = ExtResource("1_y58v3")
+
+[node name="StatController" type="Node2D" parent="."]
 unique_name_in_owner = true
 script = ExtResource("1_2qjrc")
 Def = 0.0
 Atk = 2.0
-StatText = NodePath("StatText")
 
 [node name="StatText" type="Label" parent="StatController"]
 offset_left = -28.0
